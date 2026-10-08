@@ -15,6 +15,7 @@
 }
 :root {
   --paper: #faf8f6;
+  --header-glass: rgba(250, 248, 246, .82);
   --ink: #302c2c;
   --muted: #686263;
   --accent: #985b65;
@@ -41,6 +42,7 @@
 :root[data-theme='dark'] {
   color-scheme: dark;
   --paper: #211e1e;
+  --header-glass: rgba(33, 30, 30, .82);
   --ink: #f5eeee;
   --muted: #c1b5b7;
   --accent: #dfa6b1;
@@ -83,7 +85,10 @@ a:focus-visible, button:focus-visible, video:focus-visible {
 
 /* Logo on the left, code-style links on the right, as in the reference. */
 .site-header { position: sticky; top: 0; z-index: 20; background: var(--paper); }
-.site-header.is-scrolled { background: transparent; }
+.site-header.is-scrolled { background: var(--paper); box-shadow: 0 1px 0 var(--border); }
+@supports ((backdrop-filter: blur(16px)) or (-webkit-backdrop-filter: blur(16px))) {
+  .site-header.is-scrolled { background: var(--header-glass); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+}
 .site-header:has(#site-nav.is-open) { background: var(--paper); }
 .site-header:not(.nav-ready) { position: relative; }
 .header-inner { min-height: var(--header-height); padding: 12px 40px; display: flex; justify-content: space-between; align-items: center; gap: 32px; }

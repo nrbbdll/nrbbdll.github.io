@@ -63,6 +63,9 @@ function updateCurrentSection() {
   for (const section of sections) {
     if (section.getBoundingClientRect().top <= marker) active = section.id;
   }
+  // The short final section cannot always reach the marker before scrolling ends.
+  const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+  if (atBottom && window.scrollY > 0) active = sections[sections.length - 1].id;
   if (active === 'focus') active = 'about';
   navLinks.forEach(link => {
     if (link.hash === `#${active}`) link.setAttribute('aria-current', 'location');
